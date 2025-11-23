@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import HeroImage from './components/HeroImage.vue';
-
-
+import HeroImage from "./components/HeroImage.vue";
 </script>
 
 <template>
-    <HeroImage />
+  <HeroImage />
 </template>
 
-<style>
-</style>
+<style></style>
