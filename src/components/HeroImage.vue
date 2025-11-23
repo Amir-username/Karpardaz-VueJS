@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Button from "../ui/Button.vue";
+</script>
 
 <template>
   <div class="hero-image">
@@ -6,12 +8,25 @@
       وب سایت استخدام و کاریابی برای <span class="key-word">سازمان ها</span> و
       <span class="key-word">متخصصان فناوری</span>
     </h1>
+    <div class="button-group">
+      <Button variant="primary">
+        ورود به حساب
+      </Button>
+      <Button variant="outline">
+        ثبت نام
+      </Button>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .hero-image {
-  height: 100vmax;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.2rem;
+  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background-image: url(../assets/hero-image-medium.jpg);
   background-color: rgb(49, 49, 49);
@@ -26,8 +41,15 @@
 
 h1 {
   margin: 0;
-  font-size: 3.8rem;
+  font-size: 32px;
   color: var(--neutral-50);
-  padding: 16rem 1.6rem;
+  padding-top: 16rem;
+  padding-inline:1.4rem;
+}
+
+.button-group {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1rem;
 }
 </style>
