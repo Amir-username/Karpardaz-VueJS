@@ -1,10 +1,9 @@
 <script setup lang="ts">
 type ButtonProps = {
-    variant: 'primary' | 'outline'
+  variant: "primary" | "outline";
 };
 
 const props = defineProps<ButtonProps>();
-
 </script>
 
 <template>
@@ -15,13 +14,18 @@ const props = defineProps<ButtonProps>();
 
 <style scoped>
 button {
-  border-radius: 12px;
+  border-radius: 8px;
   color: var(--neutral-50);
   text-align: center;
   width: 100%;
-  font-size: 24px;
-  /* padding: 0.9rem 2rem; */
+  font-size: 20px;
+  padding: 0.8rem 2rem;
   font-weight: 500;
+  font-family: "Vazirmatn", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  border: none;
 }
 
 .primary {
@@ -29,7 +33,7 @@ button {
 }
 
 .outline {
-  border: 2px var(--neutral-50) solid;
+  border: 1px var(--primary-300) solid;
   background-color: transparent;
 }
 </style>

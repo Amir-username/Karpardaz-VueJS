@@ -29,7 +29,7 @@ import Button from "../ui/Button.vue";
   min-height: 100vh;
   width: 100%;
   background-image: url(../assets/hero-image-medium.jpg);
-  background-color: rgb(49, 49, 49);
+  background-color: rgb(30, 30, 30);
   background-blend-mode: multiply;
   background-position: center;
   background-size: cover;
@@ -41,10 +41,11 @@ import Button from "../ui/Button.vue";
 
 h1 {
   margin: 0;
-  font-size: 32px;
+  font-size: 2.7rem;
   color: var(--neutral-50);
   padding-top: 16rem;
-  padding-inline:1.4rem;
+  padding-inline:1rem;
+  line-height: 3ch;
 }
 
 .button-group {
