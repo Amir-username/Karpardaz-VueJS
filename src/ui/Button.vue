@@ -26,14 +26,25 @@ button {
   font-weight: 400;
   font-style: normal;
   border: none;
+  cursor: pointer;
 }
 
 .primary {
   background-color: var(--primary-400);
+
+  &:hover {
+    background-color: var(--primary-300);
+  }
 }
 
 .outline {
   border: 1px var(--primary-300) solid;
   background-color: transparent;
+
+  &:hover {
+    background-color: var(--primary-400);
+    border: 1px var(--primary-400) solid;
+    transition-duration: 500ms;
+  }
 }
 </style>

@@ -9,12 +9,8 @@ import Button from "../ui/Button.vue";
       <span class="key-word">متخصصان فناوری</span>
     </h1>
     <div class="button-group">
-      <Button variant="primary">
-        ورود به حساب
-      </Button>
-      <Button variant="outline">
-        ثبت نام
-      </Button>
+      <Button variant="primary"> ورود به حساب </Button>
+      <Button variant="outline"> ثبت نام </Button>
     </div>
   </div>
 </template>
@@ -33,6 +29,12 @@ import Button from "../ui/Button.vue";
   background-blend-mode: multiply;
   background-position: center;
   background-size: cover;
+
+  @media (min-width: 760px) {
+    background-image: url(../assets/hero-image-large.jpg);
+    padding: 0.5rem 28rem;
+    justify-content: center;
+  }
 }
 
 .key-word {
@@ -44,13 +46,25 @@ h1 {
   font-size: 2.7rem;
   color: var(--neutral-50);
   padding-top: 16rem;
-  padding-inline:1rem;
+  padding-inline: 1rem;
   line-height: 3ch;
+
+  @media (min-width: 760px) {
+    padding-top: 0;
+    font-size: 4.5rem;
+    padding-inline-end: 3.5rem;
+    line-height: 3.3ch;
+  }
 }
 
 .button-group {
   display: grid;
   gap: 0.4rem;
   padding: 1rem;
+
+  @media (min-width: 760px) {
+    display: flex;
+    max-width: 28rem;
+  }
 }
 </style>
