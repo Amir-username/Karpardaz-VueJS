@@ -40,6 +40,7 @@ import ImageCard from "../ui/ImageCard.vue";
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: normal;
+    padding-inline: 12rem;
   }
 }
 
@@ -48,5 +49,9 @@ import ImageCard from "../ui/ImageCard.vue";
   text-align: center;
   color: var(--primary-400);
   font-family: "Vazirmatn", sans-serif;
+
+  @media (min-width: 960px) {
+    font-size: 2.9rem;
+  }
 }
 </style>

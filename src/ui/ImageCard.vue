@@ -20,6 +20,11 @@ const props = defineProps<{
   justify-content: center;
   border: 1px solid var(--neutral-100);
   border-radius: 8px;
+
+  &:hover {
+    box-shadow: 0px 0px 8px var(--secondary-500);
+    transition-duration: 400ms;
+  }
 }
 
 img {
