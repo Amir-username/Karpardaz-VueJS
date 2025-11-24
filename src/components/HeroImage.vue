@@ -4,13 +4,13 @@ import Button from "../ui/Button.vue";
 
 <template>
   <div class="hero-image">
-    <h1 class="lalezar">
+    <h1 class="lalezar fade-in">
       وب سایت استخدام و کاریابی برای <span class="key-word">سازمان ها</span> و
       <span class="key-word">متخصصان فناوری</span>
     </h1>
     <div class="button-group">
-      <Button variant="primary"> ورود به حساب </Button>
-      <Button variant="outline"> ثبت نام </Button>
+      <Button class="fade-in" variant="primary"> ورود به حساب </Button>
+      <Button class="fade-in" variant="outline"> ثبت نام </Button>
     </div>
   </div>
 </template>
@@ -65,6 +65,21 @@ h1 {
   @media (min-width: 1500px) {
     display: flex;
     max-width: 28rem;
+  }
+}
+
+.fade-in {
+  animation: 1.2s ease-out forwards fadeInUp;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 </style>
