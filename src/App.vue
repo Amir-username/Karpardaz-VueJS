@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Footer from "./components/Footer.vue";
 import HeroImage from "./components/HeroImage.vue";
 import Overview from "./components/Overview.vue";
 import Carousel from "./ui/Carousel.vue";
@@ -9,6 +10,7 @@ import Carousel from "./ui/Carousel.vue";
     <HeroImage />
     <Overview />
     <Carousel />
+    <Footer />
   </main>
 </template>
 
