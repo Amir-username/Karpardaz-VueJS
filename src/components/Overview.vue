@@ -7,10 +7,13 @@ import iLL5 from "../assets/Illustrates/iLL_5.svg";
 import iLL6 from "../assets/Illustrates/iLL_6.svg";
 
 import ImageCard from "../ui/ImageCard.vue";
+import SectionHeader from "../ui/SectionHeader.vue";
 </script>
 
 <template>
-  <h1 class="overview-title">چرا کارپرداز؟</h1>
+  <SectionHeader>
+    چرا کارپرداز؟
+  </SectionHeader>
   <section class="overview">
     <ImageCard text="امکان جستجو میان هزاران آگهی در سراسر کشور" :img="iLL1" />
     <ImageCard

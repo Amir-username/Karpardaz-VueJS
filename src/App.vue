@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import HeroImage from "./components/HeroImage.vue";
 import Overview from "./components/Overview.vue";
+import Carousel from "./ui/Carousel.vue";
 </script>
 
 <template>
   <main>
     <HeroImage />
     <Overview />
+    <Carousel />
   </main>
 </template>
 
