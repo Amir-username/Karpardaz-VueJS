@@ -14,7 +14,7 @@
   font-family: "Vazirmatn", sans-serif;
 
   @media (min-width: 960px) {
-    font-size: 2.9rem;
+    font-size: 2.3rem;
   }
 }
 </style>

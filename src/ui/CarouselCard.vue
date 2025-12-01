@@ -17,6 +17,15 @@
   flex-shrink: 0;
   border: 1px solid var(--neutral-100);
   border-radius: 8px;
+
+  &:hover {
+    box-shadow: 0px 0px 8px var(--primary-100);
+    transition-duration: 400ms;
+  }
+
+  @media (min-width: 1500px) {
+    max-width: 300px;
+  }
 }
 
 .carousel-card-content {
@@ -28,6 +37,11 @@
   padding: 4rem;
   height: 18rem;
   gap: 1rem;
+
+  @media (min-width: 1500px) {
+    padding: 2rem;
+    height: 15rem;
+  }
 }
 
 .carousel-card-button {
@@ -54,7 +68,7 @@ h5 {
 }
 
 .carousel-card-subtitle {
-    font-size: 1.2rem;
-    color: var(--neutral-500);
+  font-size: 1.2rem;
+  color: var(--neutral-500);
 }
 </style>
