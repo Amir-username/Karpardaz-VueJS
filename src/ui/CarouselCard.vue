@@ -1,10 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+/// <reference types="f:/Amir/VueJS/Karpardaz-VueJS/node_modules/.vue-global-types/vue_3.5_0.d.ts" />
+import type { Advertise } from "../models/Advertise";
+
+const props = defineProps<{ advertise: Advertise }>();
+</script>
 
 <template>
   <article class="carousel-card">
     <div class="carousel-card-content">
-      <h3 class="carousel-card-title">عنوان آگهی شغلی</h3>
-      <h5 class="carousel-card-subtitle">نام سازمان</h5>
+      <h3 class="carousel-card-title">{{ props.advertise.title }}</h3>
+      <h5 class="carousel-card-subtitle"> سازمان</h5>
     </div>
     <button class="carousel-card-button">مشاهده</button>
   </article>

@@ -1,19 +1,28 @@
 <script setup lang="ts">
+import { onMounted, ref } from "vue";
 import CarouselCard from "./CarouselCard.vue";
 import SectionHeader from "./SectionHeader.vue";
+import type { Advertise } from "../models/Advertise";
+import { fetchAdvertises } from "../core/fetch/fetchAdvertises";
+
+const advertises = ref<Advertise[]>([]);
+
+onMounted(async () => {
+  const handleFetchAdvertises = async () => {
+    const res = await fetchAdvertises(0, 4);
+    return res.advertises;
+  };
+
+  advertises.value = await handleFetchAdvertises();
+
+  console.log(advertises.value);
+});
 </script>
 
 <template>
   <SectionHeader> جدید ترین آگهی ها </SectionHeader>
   <section class="carousel">
-    <CarouselCard />
-    <CarouselCard />
-    <CarouselCard />
-    <CarouselCard />
-    <CarouselCard />
-    <CarouselCard />
-    <CarouselCard />
-    <CarouselCard />
+    <CarouselCard v-for="ad in advertises" :key="ad.id" :advertise="ad" />
   </section>
   <a class="more-ads" href="#">مشاهده بیش تر ...</a>
 </template>
