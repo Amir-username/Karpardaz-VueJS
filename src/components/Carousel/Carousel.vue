@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import CarouselCard from "./CarouselCard.vue";
-import SectionHeader from "./SectionHeader.vue";
-import type { Advertise } from "../models/Advertise";
+import { onMounted, ref } from "vue";
+import type { Advertise } from "../../models/Advertise";
 import { useFetch } from "@vueuse/core";
+import { BASE_URL } from "../../api-config";
+import SectionHeader from "../../ui/SectionHeader.vue";
+import CarouselCard from "./CarouselCard.vue";
+import CarouselLoading from "./CarouselLoading.vue";
 
 type FetchType = {
   advertises: Advertise[];
@@ -11,22 +13,30 @@ type FetchType = {
 
 const advertises = ref<Advertise[]>([]);
 
-const { data: res } = useFetch<FetchType>(
-  "https://underlying-umeko-univercityproject317-ea179cc6.koyeb.app/advertisements",
-  { refetch: true }
+const { data: res, execute, error, isFetching } = useFetch<FetchType>(
+  `${BASE_URL}/advertisements`,
+  { refetch: true, immediate: false }
 ).json();
 
-console.log(res);
 
 if (res.value) {
   advertises.value = res.value?.advertises;
 }
+
+onMounted(()=>{
+  execute()
+  console.log(error.value);
+})
+
 </script>
 
 <template>
   <SectionHeader> جدید ترین آگهی ها </SectionHeader>
+  <div class="loading" v-if="isFetching">
+    <CarouselLoading v-for="(index) in 4" :key="index"/>
+  </div>
   <section class="carousel hide-scrollbar">
-    <CarouselCard v-for="ad in advertises" :key="ad.id" :advertise="ad" />
+    <CarouselCard v-for="ad in res?.advertises" :key="ad.id" :advertise="ad" />
   </section>
   <a class="more-ads" href="#">مشاهده بیش تر ...</a>
 </template>
@@ -58,5 +68,12 @@ if (res.value) {
   border-radius: 8px;
   color: var(--primary-500);
   align-self: center;
+}
+
+.loading {
+  display: flex;
+  overflow: scroll;
+  gap: 1rem;
+  padding: 1rem;
 }
 </style>

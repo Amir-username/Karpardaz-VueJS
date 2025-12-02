@@ -2,7 +2,7 @@
 import Footer from "./components/Footer.vue";
 import HeroImage from "./components/HeroImage.vue";
 import Overview from "./components/Overview.vue";
-import Carousel from "./ui/Carousel.vue";
+import Carousel from "./components/Carousel/Carousel.vue";
 </script>
 
 <template>

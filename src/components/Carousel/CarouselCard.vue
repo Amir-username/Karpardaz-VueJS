@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Advertise } from "../models/Advertise";
+import type { Advertise } from "../../models/Advertise";
 
 const props = defineProps<{ advertise: Advertise }>();
 </script>
@@ -21,6 +21,7 @@ const props = defineProps<{ advertise: Advertise }>();
   flex-shrink: 0;
   border: 1px solid var(--neutral-100);
   border-radius: 8px;
+  width: 350px;
 
   &:hover {
     box-shadow: 0px 0px 8px var(--primary-100);
