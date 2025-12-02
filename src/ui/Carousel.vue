@@ -1,22 +1,26 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import CarouselCard from "./CarouselCard.vue";
 import SectionHeader from "./SectionHeader.vue";
 import type { Advertise } from "../models/Advertise";
-import { fetchAdvertises } from "../core/fetch/fetchAdvertises";
+import { useFetch } from "@vueuse/core";
+
+type FetchType = {
+  advertises: Advertise[];
+};
 
 const advertises = ref<Advertise[]>([]);
 
-onMounted(async () => {
-  const handleFetchAdvertises = async () => {
-    const res = await fetchAdvertises(0, 4);
-    return res.advertises;
-  };
+const { data: res } = useFetch<FetchType>(
+  "https://underlying-umeko-univercityproject317-ea179cc6.koyeb.app/advertisements",
+  { refetch: true }
+).json();
 
-  advertises.value = await handleFetchAdvertises();
+console.log(res);
 
-  console.log(advertises.value);
-});
+if (res.value) {
+  advertises.value = res.value?.advertises;
+}
 </script>
 
 <template>
@@ -42,8 +46,8 @@ onMounted(async () => {
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .more-ads {
