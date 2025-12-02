@@ -13,8 +13,14 @@
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  border: 1px solid var(--neutral-100);
 
   animation: pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @media (min-width: 800px) {
+    max-width: 300px;
+    max-height: 250px;
+  }
 }
 
 .loading-card::before {
@@ -32,7 +38,8 @@
   animation: shimmer 2.2s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
     transform: scale(1);
   }

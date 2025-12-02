@@ -13,27 +13,30 @@ type FetchType = {
 
 const advertises = ref<Advertise[]>([]);
 
-const { data: res, execute, error, isFetching } = useFetch<FetchType>(
-  `${BASE_URL}/advertisements`,
-  { refetch: true, immediate: false }
-).json();
-
+const {
+  data: res,
+  execute,
+  error,
+  isFetching,
+} = useFetch<FetchType>(`${BASE_URL}/advertisements/?offset=0&limit=8`, {
+  refetch: true,
+  immediate: false,
+}).json();
 
 if (res.value) {
   advertises.value = res.value?.advertises;
 }
 
-onMounted(()=>{
-  execute()
+onMounted(() => {
+  execute();
   console.log(error.value);
-})
-
+});
 </script>
 
 <template>
   <SectionHeader> جدید ترین آگهی ها </SectionHeader>
-  <div class="loading" v-if="isFetching">
-    <CarouselLoading v-for="(index) in 4" :key="index"/>
+  <div class="loading hide-scrollbar" v-if="isFetching">
+    <CarouselLoading v-for="index in 8" :key="index" />
   </div>
   <section class="carousel hide-scrollbar">
     <CarouselCard v-for="ad in res?.advertises" :key="ad.id" :advertise="ad" />
@@ -75,5 +78,12 @@ onMounted(()=>{
   overflow: scroll;
   gap: 1rem;
   padding: 1rem;
+
+  @media (min-width: 800px) {
+    display: grid;
+    gap: 1rem;
+    padding-inline: 12rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
 </style>
