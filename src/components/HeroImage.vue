@@ -30,9 +30,9 @@ import Button from "../ui/Button.vue";
   background-position: center;
   background-size: cover;
 
-  @media (min-width: 1500px) {
+  @media (min-width: 800px) {
     background-image: url(../assets/hero-image-large.jpg);
-    padding: 0.5rem 28rem;
+    padding: 0.5rem 25rem;
     justify-content: center;
   }
 }
@@ -49,9 +49,9 @@ h1 {
   padding-inline: 1rem;
   line-height: 3ch;
 
-  @media (min-width: 1500px) {
+  @media (min-width: 800px) {
     padding-top: 0;
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     padding-inline-end: 3.5rem;
     line-height: 3.3ch;
   }
@@ -62,7 +62,7 @@ h1 {
   gap: 0.4rem;
   padding: 1rem;
 
-  @media (min-width: 1500px) {
+  @media (min-width: 800px) {
     display: flex;
     max-width: 28rem;
   }

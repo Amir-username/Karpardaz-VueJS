@@ -21,7 +21,7 @@ onMounted(async () => {
 
 <template>
   <SectionHeader> جدید ترین آگهی ها </SectionHeader>
-  <section class="carousel">
+  <section class="carousel hide-scrollbar">
     <CarouselCard v-for="ad in advertises" :key="ad.id" :advertise="ad" />
   </section>
   <a class="more-ads" href="#">مشاهده بیش تر ...</a>
@@ -34,11 +34,16 @@ onMounted(async () => {
   padding: 1rem;
   gap: 1rem;
 
-  @media (min-width: 1500px) {
+  @media (min-width: 800px) {
     padding-inline: 12rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }
 
 .more-ads {

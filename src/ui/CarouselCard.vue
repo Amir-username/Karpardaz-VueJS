@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/// <reference types="f:/Amir/VueJS/Karpardaz-VueJS/node_modules/.vue-global-types/vue_3.5_0.d.ts" />
 import type { Advertise } from "../models/Advertise";
 
 const props = defineProps<{ advertise: Advertise }>();
@@ -9,7 +8,7 @@ const props = defineProps<{ advertise: Advertise }>();
   <article class="carousel-card">
     <div class="carousel-card-content">
       <h3 class="carousel-card-title">{{ props.advertise.title }}</h3>
-      <h5 class="carousel-card-subtitle"> سازمان</h5>
+      <h5 class="carousel-card-subtitle">سازمان</h5>
     </div>
     <button class="carousel-card-button">مشاهده</button>
   </article>
@@ -43,9 +42,9 @@ const props = defineProps<{ advertise: Advertise }>();
   height: 18rem;
   gap: 1rem;
 
-  @media (min-width: 1500px) {
+  @media (min-width: 800px) {
     padding: 2rem;
-    height: 15rem;
+    height: 13rem;
   }
 }
 
@@ -70,6 +69,7 @@ h5 {
 .carousel-card-title {
   font-size: 1.6rem;
   color: var(--primary-500);
+  text-align: center;
 }
 
 .carousel-card-subtitle {
