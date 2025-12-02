@@ -1,14 +1,31 @@
 <script setup lang="ts">
+import { useFetch } from "@vueuse/core";
 import type { Advertise } from "../../models/Advertise";
+import { BASE_URL } from "../../api-config";
+import { onMounted } from "vue";
+
+type EmployerResType = {
+  company_name: string;
+};
 
 const props = defineProps<{ advertise: Advertise }>();
+
+const { data: employer, execute } = useFetch<EmployerResType>(
+  `${BASE_URL}/employers/${props.advertise.employer_id}`, {
+    immediate: false,
+  }
+).json();
+
+onMounted(()=>{
+  execute()
+})
 </script>
 
 <template>
   <article class="carousel-card">
     <div class="carousel-card-content">
       <h3 class="carousel-card-title">{{ props.advertise.title }}</h3>
-      <h5 class="carousel-card-subtitle">سازمان</h5>
+      <h5 class="carousel-card-subtitle">{{ employer?.company_name }}</h5>
     </div>
     <button class="carousel-card-button">مشاهده</button>
   </article>

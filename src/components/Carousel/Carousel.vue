@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import type { Advertise } from "../../models/Advertise";
 import { useFetch } from "@vueuse/core";
 import { BASE_URL } from "../../api-config";
@@ -11,25 +11,17 @@ type FetchType = {
   advertises: Advertise[];
 };
 
-const advertises = ref<Advertise[]>([]);
-
 const {
   data: res,
   execute,
-  error,
   isFetching,
 } = useFetch<FetchType>(`${BASE_URL}/advertisements/?offset=0&limit=8`, {
   refetch: true,
   immediate: false,
 }).json();
 
-if (res.value) {
-  advertises.value = res.value?.advertises;
-}
-
 onMounted(() => {
   execute();
-  console.log(error.value);
 });
 </script>
 
@@ -41,7 +33,7 @@ onMounted(() => {
   <section class="carousel hide-scrollbar">
     <CarouselCard v-for="ad in res?.advertises" :key="ad.id" :advertise="ad" />
   </section>
-  <a class="more-ads" href="#">مشاهده بیش تر ...</a>
+  <a class="more-ads" href="#">مشاهده همه...</a>
 </template>
 
 <style scoped>
