@@ -9,7 +9,11 @@ import Button from "../ui/Button.vue";
       <span class="key-word">متخصصان فناوری</span>
     </h1>
     <div class="button-group">
-      <Button class="fade-in" variant="primary"> ورود به حساب </Button>
+      <router-link to="/auth/jobseeker/login" custom v-slot="{ navigate }">
+        <Button @click="navigate" class="fade-in" variant="primary">
+          ورود به حساب
+        </Button>
+      </router-link>
       <Button class="fade-in" variant="outline"> ثبت نام </Button>
     </div>
   </div>

@@ -1,21 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router";
+import HomePage from "../pages/HomePage.vue";
+import JobSeekerLoginPage from "../pages/auth/JobSeekerLoginPage.vue";
 
 const routes = [
   {
     path: "/",
     name: "homepage",
-    component: () => import("../pages/HomePage.vue"),
+    component: HomePage
   },
-  //   {
-  //     path: "/",
-  //     name: "homepage",
-  //     component: import("../pages/HomePage.vue"),
-  //   },
-  //   {
-  //     path: "/",
-  //     name: "homepage",
-  //     component: import("../pages/HomePage.vue"),
-  //   },
+  {
+    path: "/auth/jobseeker/login",
+    name: "jobseeker-login",
+    component: JobSeekerLoginPage
+  },
 ];
 
 const router = createRouter({
