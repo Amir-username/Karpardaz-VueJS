@@ -16,6 +16,13 @@ form {
   border: 1px solid var(--neutral-100);
   margin: 1rem;
   background-color: white;
+
+  @media (min-width:960px) {
+    min-width: 360px;
+    position: absolute;
+    inset-block-start: 25%;
+    inset-inline-start: 25%;
+  }
 }
 
 button {
@@ -25,5 +32,15 @@ button {
   border-radius: 8px;
   color: white;
   border: none;
+  cursor: pointer;
+
+  /* @media (min-width:960px) {
+    max-height: 50px;
+  } */
+
+  &:hover {
+    background-color: var(--primary-500);
+    transition-duration: 500ms;
+  }
 }
 </style>

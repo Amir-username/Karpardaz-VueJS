@@ -10,5 +10,9 @@ input {
   font-size: 1.2rem;
   border-radius: 8px;
   border: 1px solid var(--neutral-100);
+
+  /* @media (min-width:960px) {
+    max-height: 50px;
+  } */
 }
 </style>
