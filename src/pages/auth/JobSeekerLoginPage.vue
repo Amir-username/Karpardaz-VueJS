@@ -1,7 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import JobSeekerLoginForm from "../../components/auth/JobSeekerLoginForm.vue";
+</script>
 
 <template>
-    <h1>jobseeker login page</h1>
+  <main>
+    <JobSeekerLoginForm />
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--primary-500);
+  min-height: 100vh;
+}
+</style>

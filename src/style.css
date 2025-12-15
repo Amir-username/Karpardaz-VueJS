@@ -32,6 +32,7 @@
   --danger-dark: #af0c0c;
   --danger: #f05555;
   --danger-light: #fab3b3;
+  --neutral-600: #313131;
   --neutral-500: #505050;
   --neutral-300: #9a9a9a;
   --neutral-100: #d8d8d8;
@@ -46,4 +47,5 @@
 
 body {
   margin: 0;
+  padding: 0;
 }
