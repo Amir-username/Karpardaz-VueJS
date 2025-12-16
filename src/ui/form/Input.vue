@@ -1,7 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const model = defineModel({ type: String, default: "" });
+</script>
 
 <template>
-  <input />
+  <input
+    :value="model"
+    @input="model = ($event.target as HTMLInputElement).value"
+  />
 </template>
 
 <style scoped>

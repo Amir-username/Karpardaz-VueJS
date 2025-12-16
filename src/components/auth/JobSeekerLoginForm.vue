@@ -1,10 +1,37 @@
 <script setup lang="ts">
+import { useFetch } from "@vueuse/core";
 import Form from "../../ui/form/Form.vue";
 import Input from "../../ui/form/Input.vue";
+import { BASE_URL } from "../../api-config";
+import { ref } from "vue";
+
+const formDataRef = ref<{ username: string; password: string }>({
+  username: "",
+  password: "",
+});
+
+const formData = new FormData();
+
+const { execute, data, isFetching } = useFetch(`${BASE_URL}/jobseeker/login`, {
+  immediate: false,
+})
+  .post(formData)
+  .json();
+
+const handleLoginSubmit = async () => {
+  if (formDataRef.value.username.trim() && formDataRef.value.password.trim()) {
+    formData.set("username", formDataRef.value.username);
+    formData.set("password", formDataRef.value.password);
+
+    await execute();
+    console.log(data.value);
+  }
+  console.log(formData);
+};
 </script>
 
 <template>
-  <Form>
+  <Form @submit.prevent="handleLoginSubmit">
     <h3>فرم ورود کارجو</h3>
     <div class="input-group">
       <div class="label">
@@ -21,7 +48,7 @@ import Input from "../../ui/form/Input.vue";
         </svg>
         <label for="username">نام کاربری</label>
       </div>
-      <Input type="text" id="username" />
+      <Input v-model="formDataRef.username" type="text" id="username" />
     </div>
     <div class="input-group">
       <div class="label">
@@ -38,7 +65,16 @@ import Input from "../../ui/form/Input.vue";
         </svg>
         <label for="password">رمز عبور</label>
       </div>
-      <Input type="password" id="password" />
+      <Input v-model="formDataRef.password" type="password" id="password" />
+      <button
+        v-if="isFetching"
+        disabled
+        class="vazirmatn-body-font"
+        type="submit"
+      >
+        در حال پردازش...
+      </button>
+      <button v-else class="vazirmatn-body-font" type="submit">ورود</button>
     </div>
   </Form>
 </template>
@@ -65,5 +101,24 @@ label {
   display: flex;
   gap: 0.6ch;
   align-items: first center;
+}
+
+button {
+  font-size: 1.1rem;
+  padding: 0.7rem;
+  background-color: var(--primary-400);
+  border-radius: 8px;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  /* @media (min-width:960px) {
+    max-height: 50px;
+  } */
+
+  &:hover {
+    background-color: var(--primary-500);
+    transition-duration: 500ms;
+  }
 }
 </style>

@@ -1,9 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <template>
   <form>
     <slot></slot>
-    <button class="vazirmatn-body-font" type="submit">ورود</button>
+    
   </form>
 </template>
 
@@ -17,7 +18,7 @@ form {
   margin: 1rem;
   background-color: white;
 
-  @media (min-width:960px) {
+  @media (min-width: 960px) {
     min-width: 360px;
     position: absolute;
     inset-block-start: 25%;
@@ -25,22 +26,4 @@ form {
   }
 }
 
-button {
-  font-size: 1.1rem;
-  padding: 0.7rem;
-  background-color: var(--primary-400);
-  border-radius: 8px;
-  color: white;
-  border: none;
-  cursor: pointer;
-
-  /* @media (min-width:960px) {
-    max-height: 50px;
-  } */
-
-  &:hover {
-    background-color: var(--primary-500);
-    transition-duration: 500ms;
-  }
-}
 </style>
