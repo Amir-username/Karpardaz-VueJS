@@ -30,7 +30,7 @@
   --success: #4ff573;
   --success-light: #a9f9bb;
   --danger-dark: #af0c0c;
-  --danger: #f05555;
+  --danger: #efcece;
   --danger-light: #fab3b3;
   --neutral-600: #313131;
   --neutral-500: #505050;
@@ -63,4 +63,10 @@ body {
     opacity: 1;
     transform: none;
   }
+}
+
+
+p {
+  margin: 0;
+  padding: 0;
 }

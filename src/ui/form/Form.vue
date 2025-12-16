@@ -21,8 +21,9 @@ form {
   @media (min-width: 960px) {
     min-width: 360px;
     position: absolute;
-    inset-block-start: 25%;
+    inset-block-start: 15%;
     inset-inline-start: 25%;
+    inset-block-end: 10%;
   }
 }
 

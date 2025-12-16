@@ -4,6 +4,9 @@ import Form from "../../ui/form/Form.vue";
 import Input from "../../ui/form/Input.vue";
 import { BASE_URL } from "../../api-config";
 import { ref } from "vue";
+import { validationUsername } from "../../core/validationUsername";
+import ErrorField from "../../ui/form/ErrorField.vue";
+import { validationPassword } from "../../core/validationPassword";
 
 const formDataRef = ref<{ username: string; password: string }>({
   username: "",
@@ -18,20 +21,34 @@ const { execute, data, isFetching } = useFetch(`${BASE_URL}/jobseeker/login`, {
   .post(formData)
   .json();
 
+const usernameErrors = ref<string[]>([]);
+const passwordErrors = ref<string[]>([]);
+
 const handleLoginSubmit = async () => {
-  if (formDataRef.value.username.trim() && formDataRef.value.password.trim()) {
+  const validateUsername = validationUsername(formDataRef.value.username);
+  const validatePassword = validationPassword(formDataRef.value.password);
+
+  if (validateUsername.length === 0 && validatePassword.length === 0) {
     formData.set("username", formDataRef.value.username);
-    formData.set("password", formDataRef.value.password);
 
     await execute();
     console.log(data.value);
+    console.log(formData);
+  } else {
+    validateUsername.forEach((error) => {
+      usernameErrors.value.push(error);
+    });
+
+    validatePassword.forEach((error) => {
+      passwordErrors.value.push(error);
+    });
   }
-  console.log(formData);
+  formData.set("password", formDataRef.value.password);
 };
 </script>
 
 <template>
-  <Form @submit.prevent="handleLoginSubmit">
+  <Form novalidate @submit.prevent="handleLoginSubmit">
     <h3>فرم ورود کارجو</h3>
     <div class="input-group">
       <div class="label">
@@ -48,7 +65,8 @@ const handleLoginSubmit = async () => {
         </svg>
         <label for="username">نام کاربری</label>
       </div>
-      <Input v-model="formDataRef.username" type="text" id="username" />
+      <Input v-model="formDataRef.username" type="email" id="username" />
+      <ErrorField v-show="usernameErrors.length" :errors="usernameErrors" />
     </div>
     <div class="input-group">
       <div class="label">
@@ -66,6 +84,7 @@ const handleLoginSubmit = async () => {
         <label for="password">رمز عبور</label>
       </div>
       <Input v-model="formDataRef.password" type="password" id="password" />
+      <ErrorField v-show="passwordErrors.length" :errors="passwordErrors" />
       <button
         v-if="isFetching"
         disabled
