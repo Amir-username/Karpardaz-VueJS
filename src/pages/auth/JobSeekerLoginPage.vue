@@ -8,7 +8,7 @@ import JobSeekerLoginForm from "../../components/auth/JobSeekerLoginForm.vue";
       <JobSeekerLoginForm />
     </div>
     <div class="login-bg">
-      <h1 class="lalezar">مسیر شغلی خود را آغاز کنید</h1>
+      <h1 class="lalezar fade-in">مسیر شغلی خود را آغاز کنید</h1>
     </div>
   </main>
 </template>

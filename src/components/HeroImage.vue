@@ -71,19 +71,4 @@ h1 {
     max-width: 28rem;
   }
 }
-
-.fade-in {
-  animation: 1.2s ease-out forwards fadeInUp;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 </style>
