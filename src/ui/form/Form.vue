@@ -1,10 +1,8 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <form>
     <slot></slot>
-    
   </form>
 </template>
 
@@ -19,12 +17,12 @@ form {
   background-color: white;
 
   @media (min-width: 960px) {
-    min-width: 360px;
+    /* min-width: 360px;
     position: absolute;
-    inset-block-start: 15%;
-    inset-inline-start: 25%;
-    inset-block-end: 10%;
+    inset-block-start: 25%;
+    inset-inline-start: 25%; */
+    margin-block-start: 15rem;
+    margin-inline:10rem
   }
 }
-
 </style>
