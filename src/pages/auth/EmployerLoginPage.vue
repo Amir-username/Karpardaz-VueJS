@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import JobSeekerLoginForm from "../../components/auth/JobSeekerLoginForm.vue";
+import EmployerLoginForm from "../../components/auth/EmployerLoginForm.vue";
 import FormContainer from "../../ui/form/FormContainer.vue";
 </script>
 
 <template>
   <FormContainer>
-    <JobSeekerLoginForm />
+    <EmployerLoginForm />
   </FormContainer>
 </template>
-
-<style scoped></style>
