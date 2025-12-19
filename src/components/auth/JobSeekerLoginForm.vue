@@ -30,6 +30,7 @@ const handleLoginSubmit = async () => {
 
   if (validateUsername.length === 0 && validatePassword.length === 0) {
     formData.set("username", formDataRef.value.username);
+    formData.set("password", formDataRef.value.password);
 
     await execute();
     console.log(data.value);
@@ -43,7 +44,6 @@ const handleLoginSubmit = async () => {
       passwordErrors.value.push(error);
     });
   }
-  formData.set("password", formDataRef.value.password);
 };
 </script>
 
@@ -85,16 +85,16 @@ const handleLoginSubmit = async () => {
       </div>
       <Input v-model="formDataRef.password" type="password" id="password" />
       <ErrorField v-show="passwordErrors.length" :errors="passwordErrors" />
-      <button
-        v-if="isFetching"
-        disabled
-        class="vazirmatn-body-font"
-        type="submit"
-      >
-        در حال پردازش...
-      </button>
-      <button v-else class="vazirmatn-body-font" type="submit">ورود</button>
     </div>
+    <button
+      v-if="isFetching"
+      disabled
+      class="vazirmatn-body-font"
+      type="submit"
+    >
+      در حال پردازش...
+    </button>
+    <button v-else class="vazirmatn-body-font" type="submit">ورود</button>
   </Form>
 </template>
 

@@ -1,10 +1,109 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import Form from "../../ui/form/Form.vue";
 import Input from "../../ui/form/Input.vue";
+import { useFetch } from "@vueuse/core";
+import { BASE_URL } from "../../api-config";
+import { validationName } from "../../core/validationName";
+import { validationPhoneNumber } from "../../core/validationPhoneNumber";
+import { validationPassword } from "../../core/validationPassword";
+import { validationUsername } from "../../core/validationUsername";
+import { validationRepeatedPass } from "../../core/validationRepeatedPass";
+import ErrorField from "../../ui/form/ErrorField.vue";
+
+type FormDataRefType = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+  repPassword: string;
+};
+
+const formDataRef = ref<FormDataRefType>({
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
+  email: "",
+  password: "",
+  repPassword: "",
+});
+
+const formData = new FormData();
+
+const { execute, data, isFetching, error } = useFetch(
+  `${BASE_URL}/jobseekers/`,
+  {
+    immediate: false,
+  }
+)
+  .post({
+    firstname: formDataRef.value.firstName,
+    lastname: formDataRef.value.lastName,
+    phonenumber: formDataRef.value.phoneNumber,
+    email: formDataRef.value.email,
+    password: formDataRef.value.password,
+  })
+  .json();
+
+const firstNameErrors = ref<string[]>([]);
+const lastNameErrors = ref<string[]>([]);
+const phoneNumberErrors = ref<string[]>([]);
+const emailErrors = ref<string[]>([]);
+const passwordErrors = ref<string[]>([]);
+const repPasswordErrors = ref<string[]>([]);
+
+const handleSignupSubmit = async () => {
+  const validateFirstName = validationName(
+    formDataRef.value.firstName,
+    "first name"
+  );
+  const validateLastName = validationName(
+    formDataRef.value.lastName,
+    "last name"
+  );
+  const validatePhoneNumber = validationPhoneNumber(
+    formDataRef.value.phoneNumber
+  );
+  const valdateEmail = validationUsername(formDataRef.value.email);
+  const validatePassword = validationPassword(formDataRef.value.password);
+  const validateRepPassword = validationRepeatedPass(
+    formDataRef.value.repPassword,
+    formDataRef.value.password
+  );
+
+  const errors =
+    validateFirstName.length +
+    validateLastName.length +
+    validatePhoneNumber.length +
+    valdateEmail.length +
+    validatePassword.length +
+    validateRepPassword.length;
+
+  if (errors === 0) {
+    formData.set("firstname", formDataRef.value.firstName);
+    formData.set("lastname", formDataRef.value.lastName);
+    formData.set("phonenumber", formDataRef.value.phoneNumber);
+    formData.set("email", formDataRef.value.email);
+    formData.set("password", formDataRef.value.password);
+
+    await execute();
+    console.log(data);
+    console.log(formData);
+    console.log(error.value);
+  } else {
+    firstNameErrors.value = validateFirstName;
+    lastNameErrors.value = validateLastName;
+    phoneNumberErrors.value = validatePhoneNumber;
+    emailErrors.value = valdateEmail;
+    passwordErrors.value = validatePassword;
+    repPasswordErrors.value = validateRepPassword;
+  }
+};
 </script>
 
 <template>
-  <Form id="form" novalidate>
+  <Form novalidate @submit.prevent="handleSignupSubmit" id="form">
     <h3>فرم ثبت نام کارجو</h3>
     <div class="input-group">
       <div class="label">
@@ -21,7 +120,8 @@ import Input from "../../ui/form/Input.vue";
         </svg>
         <label for="firstName">نام</label>
       </div>
-      <Input type="text" id="firstName" />
+      <Input v-model="formDataRef.firstName" type="text" id="firstName" />
+      <ErrorField v-show="firstNameErrors.length" :errors="firstNameErrors" />
     </div>
     <div class="input-group">
       <div class="label">
@@ -38,7 +138,8 @@ import Input from "../../ui/form/Input.vue";
         </svg>
         <label for="lastName">نام خانوادگی</label>
       </div>
-      <Input type="text" id="lastName" />
+      <Input v-model="formDataRef.lastName" type="text" id="lastName" />
+      <ErrorField v-show="lastNameErrors.length" :errors="lastNameErrors" />
     </div>
     <div class="input-group">
       <div class="label">
@@ -55,7 +156,11 @@ import Input from "../../ui/form/Input.vue";
         </svg>
         <label for="phoneNumber">تلفن همراه</label>
       </div>
-      <Input type="number" id="phonenumber" />
+      <Input v-model="formDataRef.phoneNumber" type="number" id="phonenumber" />
+      <ErrorField
+        v-show="phoneNumberErrors.length"
+        :errors="phoneNumberErrors"
+      />
     </div>
     <div class="input-group">
       <div class="label">
@@ -72,7 +177,8 @@ import Input from "../../ui/form/Input.vue";
         </svg>
         <label for="email">ایمیل</label>
       </div>
-      <Input type="email" id="email" />
+      <Input v-model="formDataRef.email" type="email" id="email" />
+      <ErrorField v-show="emailErrors.length" :errors="emailErrors" />
     </div>
     <div class="input-group">
       <div class="label">
@@ -89,7 +195,8 @@ import Input from "../../ui/form/Input.vue";
         </svg>
         <label for="password">رمز عبور</label>
       </div>
-      <Input type="password" id="password" />
+      <Input v-model="formDataRef.password" type="password" id="password" />
+      <ErrorField v-show="passwordErrors.length" :errors="passwordErrors" />
     </div>
     <div class="input-group">
       <div class="label">
@@ -106,8 +213,24 @@ import Input from "../../ui/form/Input.vue";
         </svg>
         <label for="rep-password">تکرار رمز عبور</label>
       </div>
-      <Input type="password" id="rep-password" />
+      <Input
+        v-model="formDataRef.repPassword"
+        type="password"
+        id="rep-password"
+      />
+      <ErrorField
+        v-show="repPasswordErrors.length"
+        :errors="repPasswordErrors"
+      />
     </div>
+    <button
+      v-if="isFetching"
+      disabled
+      class="vazirmatn-body-font"
+      type="submit"
+    >
+      در حال پردازش...
+    </button>
     <button class="vazirmatn-body-font" type="submit">ثبت نام</button>
   </Form>
 </template>
