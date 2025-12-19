@@ -1,3 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import JobSeekerSignupForm from '../../components/auth/JobSeekerSignupForm.vue';
+import FormContainer from '../../ui/form/FormContainer.vue';
 
-<template></template>
+</script>
+
+<template>
+    <FormContainer>
+        <JobSeekerSignupForm />
+    </FormContainer>
+</template>

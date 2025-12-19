@@ -14,7 +14,11 @@ import Button from "../ui/Button.vue";
           ورود به حساب
         </Button>
       </router-link>
-      <Button class="fade-in" variant="outline"> ثبت نام </Button>
+      <router-link to="/auth/jobseeker/signup" custom v-slot="{ navigate }">
+        <Button @click="navigate" class="fade-in" variant="outline">
+          ثبت نام
+        </Button>
+      </router-link>
     </div>
   </div>
 </template>

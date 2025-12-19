@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
 import JobSeekerLoginPage from "../pages/auth/JobSeekerLoginPage.vue";
 import EmployerLoginPage from "../pages/auth/EmployerLoginPage.vue";
+import JobSeekerSignupPage from "../pages/auth/JobSeekerSignupPage.vue";
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: "/auth/employer/login",
     name: "employer-login",
     component: EmployerLoginPage,
+  },
+  {
+    path: "/auth/jobseeker/signup",
+    name: "jobseeker-signup",
+    component: JobSeekerSignupPage,
   },
 ];
 
