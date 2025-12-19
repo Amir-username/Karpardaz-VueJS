@@ -22,7 +22,7 @@ form {
     inset-block-start: 25%;
     inset-inline-start: 25%; */
     margin-block-start: 15rem;
-    margin-inline:10rem
+    margin-inline:10rem;
   }
 }
 </style>
