@@ -4,6 +4,7 @@ const model = defineModel({ type: String, default: "" });
 
 <template>
   <input
+  class="vazirmatn-body-font"
     :value="model"
     @input="model = ($event.target as HTMLInputElement).value"
   />
@@ -12,7 +13,7 @@ const model = defineModel({ type: String, default: "" });
 <style scoped>
 input {
   padding: 0.7rem 0.7rem;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   border-radius: 8px;
   border: 1px solid var(--neutral-100);
 

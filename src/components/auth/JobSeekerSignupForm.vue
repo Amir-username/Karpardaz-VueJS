@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import Form from "../../ui/form/Form.vue";
 import Input from "../../ui/form/Input.vue";
-import { useFetch } from "@vueuse/core";
 import { BASE_URL } from "../../api-config";
 import { validationName } from "../../core/validationName";
 import { validationPhoneNumber } from "../../core/validationPhoneNumber";
@@ -10,6 +9,7 @@ import { validationPassword } from "../../core/validationPassword";
 import { validationUsername } from "../../core/validationUsername";
 import { validationRepeatedPass } from "../../core/validationRepeatedPass";
 import ErrorField from "../../ui/form/ErrorField.vue";
+import axios, { AxiosError } from "axios";
 
 type FormDataRefType = {
   firstName: string;
@@ -29,23 +29,6 @@ const formDataRef = ref<FormDataRefType>({
   repPassword: "",
 });
 
-const formData = new FormData();
-
-const { execute, data, isFetching, error } = useFetch(
-  `${BASE_URL}/jobseekers/`,
-  {
-    immediate: false,
-  }
-)
-  .post({
-    firstname: formDataRef.value.firstName,
-    lastname: formDataRef.value.lastName,
-    phonenumber: formDataRef.value.phoneNumber,
-    email: formDataRef.value.email,
-    password: formDataRef.value.password,
-  })
-  .json();
-
 const firstNameErrors = ref<string[]>([]);
 const lastNameErrors = ref<string[]>([]);
 const phoneNumberErrors = ref<string[]>([]);
@@ -53,7 +36,11 @@ const emailErrors = ref<string[]>([]);
 const passwordErrors = ref<string[]>([]);
 const repPasswordErrors = ref<string[]>([]);
 
+const isFetching = ref(false);
+
 const handleSignupSubmit = async () => {
+  isFetching.value = true;
+
   const validateFirstName = validationName(
     formDataRef.value.firstName,
     "first name"
@@ -81,16 +68,31 @@ const handleSignupSubmit = async () => {
     validateRepPassword.length;
 
   if (errors === 0) {
-    formData.set("firstname", formDataRef.value.firstName);
-    formData.set("lastname", formDataRef.value.lastName);
-    formData.set("phonenumber", formDataRef.value.phoneNumber);
-    formData.set("email", formDataRef.value.email);
-    formData.set("password", formDataRef.value.password);
-
-    await execute();
-    console.log(data);
-    console.log(formData);
-    console.log(error.value);
+    try {
+      const res = await axios.post(`${BASE_URL}/jobseekers/`, {
+        firstname: formDataRef.value.firstName,
+        lastname: formDataRef.value.lastName,
+        phonenumber: formDataRef.value.phoneNumber,
+        email: formDataRef.value.email,
+        password: formDataRef.value.password,
+      });
+      const data = await res.data;
+      console.log(data);
+      formDataRef.value = {
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        email: "",
+        password: "",
+        repPassword: "",
+      };
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        console.log(error.message);
+      }
+    } finally {
+      isFetching.value = false;
+    }
   } else {
     firstNameErrors.value = validateFirstName;
     lastNameErrors.value = validateLastName;
@@ -231,7 +233,7 @@ const handleSignupSubmit = async () => {
     >
       در حال پردازش...
     </button>
-    <button class="vazirmatn-body-font" type="submit">ثبت نام</button>
+    <button v-else class="vazirmatn-body-font" type="submit">ثبت نام</button>
   </Form>
 </template>
 
@@ -281,7 +283,7 @@ label {
 
 #form {
   @media (min-width: 960px) {
-    margin-block-start: 1.2rem;
+    margin-block-start: 1rem;
   }
 }
 </style>
