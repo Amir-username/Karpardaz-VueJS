@@ -2,14 +2,14 @@
 import { ref } from "vue";
 import Form from "../../ui/form/Form.vue";
 import Input from "../../ui/form/Input.vue";
-import { BASE_URL } from "../../api-config";
 import { validationName } from "../../core/validationName";
 import { validationPhoneNumber } from "../../core/validationPhoneNumber";
 import { validationPassword } from "../../core/validationPassword";
 import { validationUsername } from "../../core/validationUsername";
 import { validationRepeatedPass } from "../../core/validationRepeatedPass";
 import ErrorField from "../../ui/form/ErrorField.vue";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import { fetchJobSeekerSignup } from "../../core/fetch/fetchJobSeekerSignup";
 
 type FormDataRefType = {
   firstName: string;
@@ -69,15 +69,13 @@ const handleSignupSubmit = async () => {
 
   if (errors === 0) {
     try {
-      const res = await axios.post(`${BASE_URL}/jobseekers/`, {
-        firstname: formDataRef.value.firstName,
-        lastname: formDataRef.value.lastName,
-        phonenumber: formDataRef.value.phoneNumber,
-        email: formDataRef.value.email,
-        password: formDataRef.value.password,
-      });
-      const data = await res.data;
-      console.log(data);
+      await fetchJobSeekerSignup(
+        formDataRef.value.firstName,
+        formDataRef.value.lastName,
+        formDataRef.value.phoneNumber,
+        formDataRef.value.email,
+        formDataRef.value.password
+      );
       formDataRef.value = {
         firstName: "",
         lastName: "",
