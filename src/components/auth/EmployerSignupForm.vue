@@ -2,6 +2,13 @@
 import { ref } from "vue";
 import Form from "../../ui/form/Form.vue";
 import Input from "../../ui/form/Input.vue";
+import { useFetch } from "@vueuse/core";
+import { BASE_URL } from "../../api-config";
+import { validationName } from "../../core/validationName";
+import { validationUsername } from "../../core/validationUsername";
+import { validationPassword } from "../../core/validationPassword";
+import { validationRepeatedPass } from "../../core/validationRepeatedPass";
+import ErrorField from "../../ui/form/ErrorField.vue";
 
 type FormDataRefType = {
   companyName: string;
@@ -22,7 +29,67 @@ const emailErrors = ref<string[]>([]);
 const passwordErrors = ref<string[]>([]);
 const repPasswordErrors = ref<string[]>([]);
 
-const handleSignupSubmit = () => {};
+const formData = new FormData();
+
+const { execute, isFetching, data } = useFetch(`${BASE_URL}/employers/`, {
+  immediate: false,
+  async beforeFetch({ options }) {
+    options.headers = {
+      ...options.headers,
+      "Content-Type": "application/json",
+    };
+
+    options.body = JSON.stringify({
+      company_name: formDataRef.value.companyName,
+      email: formDataRef.value.email,
+      password: formDataRef.value.password,
+    });
+
+    return { options };
+  },
+})
+  .post()
+  .json();
+
+const handleSignupSubmit = async () => {
+  const validateCompanyName = validationName(
+    formDataRef.value.companyName,
+    "company name"
+  );
+  const validateEmail = validationUsername(formDataRef.value.email);
+  const validatePassword = validationPassword(formDataRef.value.password);
+  const validateRepPassword = validationRepeatedPass(
+    formDataRef.value.repPassword,
+    formDataRef.value.password
+  );
+
+  const errors =
+    validateCompanyName.length +
+    validateEmail.length +
+    validatePassword.length +
+    validateRepPassword.length;
+
+  if (errors === 0) {
+    formData.set("company_name", formDataRef.value.companyName);
+    formData.set("email", formDataRef.value.email);
+    formData.set("password", formDataRef.value.password);
+
+    await execute();
+    console.log(data);
+
+    formDataRef.value = {
+      companyName: "",
+      email: "",
+      password: "",
+      repPassword: "",
+    };
+  } else {
+    companyNameErrors.value = validateCompanyName;
+    emailErrors.value = validateEmail;
+    passwordErrors.value = validatePassword;
+    repPasswordErrors.value = validateRepPassword;
+  }
+};
 </script>
 
 <template>
@@ -44,7 +111,10 @@ const handleSignupSubmit = () => {};
         <label for="companyName">نام سازمان</label>
       </div>
       <Input v-model="formDataRef.companyName" type="text" id="companyName" />
-      <!-- <ErrorField v-show="firstNameErrors.length" :errors="firstNameErrors" /> -->
+      <ErrorField
+        v-show="companyNameErrors.length"
+        :errors="companyNameErrors"
+      />
     </div>
 
     <div class="input-group">
@@ -63,7 +133,7 @@ const handleSignupSubmit = () => {};
         <label for="email">ایمیل</label>
       </div>
       <Input v-model="formDataRef.email" type="email" id="email" />
-      <!-- <ErrorField v-show="emailErrors.length" :errors="emailErrors" /> -->
+      <ErrorField v-show="emailErrors.length" :errors="emailErrors" />
     </div>
     <div class="input-group">
       <div class="label">
@@ -81,7 +151,7 @@ const handleSignupSubmit = () => {};
         <label for="password">رمز عبور</label>
       </div>
       <Input v-model="formDataRef.password" type="password" id="password" />
-      <!-- <ErrorField v-show="passwordErrors.length" :errors="passwordErrors" /> -->
+      <ErrorField v-show="passwordErrors.length" :errors="passwordErrors" />
     </div>
     <div class="input-group">
       <div class="label">
@@ -103,20 +173,20 @@ const handleSignupSubmit = () => {};
         type="password"
         id="rep-password"
       />
-      <!-- <ErrorField
+      <ErrorField
         v-show="repPasswordErrors.length"
         :errors="repPasswordErrors"
-      /> -->
+      />
     </div>
-    <!-- <button
+    <button
       v-if="isFetching"
       disabled
       class="vazirmatn-body-font"
       type="submit"
     >
       در حال پردازش...
-    </button> -->
-    <button class="vazirmatn-body-font" type="submit">ثبت نام</button>
+    </button>
+    <button v-else class="vazirmatn-body-font" type="submit">ثبت نام</button>
   </Form>
 </template>
 
