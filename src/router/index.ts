@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage.vue";
 import JobSeekerLoginPage from "../pages/auth/JobSeekerLoginPage.vue";
 import EmployerLoginPage from "../pages/auth/EmployerLoginPage.vue";
 import JobSeekerSignupPage from "../pages/auth/JobSeekerSignupPage.vue";
+import EmployerSignupPage from "../pages/auth/EmployerSignupPage.vue";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: "/auth/jobseeker/signup",
     name: "jobseeker-signup",
     component: JobSeekerSignupPage,
+  },
+  {
+    path: "/auth/employer/signup",
+    name: "employer-signup",
+    component: EmployerSignupPage,
   },
 ];
 
