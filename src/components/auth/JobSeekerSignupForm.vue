@@ -10,6 +10,7 @@ import { validationRepeatedPass } from "../../core/validationRepeatedPass";
 import ErrorField from "../../ui/form/ErrorField.vue";
 import { AxiosError } from "axios";
 import { fetchJobSeekerSignup } from "../../core/fetch/fetchJobSeekerSignup";
+import FormFooter from "../../ui/form/FormFooter.vue";
 
 type FormDataRefType = {
   firstName: string;
@@ -232,6 +233,7 @@ const handleSignupSubmit = async () => {
       در حال پردازش...
     </button>
     <button v-else class="vazirmatn-body-font" type="submit">ثبت نام</button>
+    <FormFooter role="jobseeker" link="employer-signup" />
   </Form>
 </template>
 

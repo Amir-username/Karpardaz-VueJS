@@ -7,6 +7,7 @@ import { ref } from "vue";
 import { validationUsername } from "../../core/validationUsername";
 import ErrorField from "../../ui/form/ErrorField.vue";
 import { validationPassword } from "../../core/validationPassword";
+import FormFooter from "../../ui/form/FormFooter.vue";
 
 const formDataRef = ref<{ username: string; password: string }>({
   username: "",
@@ -95,6 +96,7 @@ const handleLoginSubmit = async () => {
       در حال پردازش...
     </button>
     <button v-else class="vazirmatn-body-font" type="submit">ورود</button>
+    <FormFooter role="jobseeker" link="employer-login" />
   </Form>
 </template>
 

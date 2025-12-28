@@ -9,6 +9,7 @@ import { validationUsername } from "../../core/validationUsername";
 import { validationPassword } from "../../core/validationPassword";
 import { validationRepeatedPass } from "../../core/validationRepeatedPass";
 import ErrorField from "../../ui/form/ErrorField.vue";
+import FormFooter from "../../ui/form/FormFooter.vue";
 
 type FormDataRefType = {
   companyName: string;
@@ -187,6 +188,7 @@ const handleSignupSubmit = async () => {
       در حال پردازش...
     </button>
     <button v-else class="vazirmatn-body-font" type="submit">ثبت نام</button>
+    <FormFooter role="employer" link="jobseeker-signup" />
   </Form>
 </template>
 
