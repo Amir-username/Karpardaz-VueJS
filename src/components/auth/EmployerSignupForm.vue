@@ -10,6 +10,7 @@ import { validationPassword } from "../../core/validationPassword";
 import { validationRepeatedPass } from "../../core/validationRepeatedPass";
 import ErrorField from "../../ui/form/ErrorField.vue";
 import FormFooter from "../../ui/form/FormFooter.vue";
+import { useRouter } from "vue-router";
 
 type FormDataRefType = {
   companyName: string;
@@ -30,7 +31,7 @@ const emailErrors = ref<string[]>([]);
 const passwordErrors = ref<string[]>([]);
 const repPasswordErrors = ref<string[]>([]);
 
-const formData = new FormData();
+const router = useRouter();
 
 const { execute, isFetching, data } = useFetch(`${BASE_URL}/employers/`, {
   immediate: false,
@@ -71,10 +72,6 @@ const handleSignupSubmit = async () => {
     validateRepPassword.length;
 
   if (errors === 0) {
-    formData.set("company_name", formDataRef.value.companyName);
-    formData.set("email", formDataRef.value.email);
-    formData.set("password", formDataRef.value.password);
-
     await execute();
     console.log(data);
 
@@ -84,6 +81,8 @@ const handleSignupSubmit = async () => {
       password: "",
       repPassword: "",
     };
+
+    router.push("employer-login");
   } else {
     companyNameErrors.value = validateCompanyName;
     emailErrors.value = validateEmail;

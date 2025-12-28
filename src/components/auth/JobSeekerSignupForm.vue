@@ -11,6 +11,7 @@ import ErrorField from "../../ui/form/ErrorField.vue";
 import { AxiosError } from "axios";
 import { fetchJobSeekerSignup } from "../../core/fetch/fetchJobSeekerSignup";
 import FormFooter from "../../ui/form/FormFooter.vue";
+import { useRouter } from "vue-router";
 
 type FormDataRefType = {
   firstName: string;
@@ -38,6 +39,8 @@ const passwordErrors = ref<string[]>([]);
 const repPasswordErrors = ref<string[]>([]);
 
 const isFetching = ref(false);
+
+const router = useRouter();
 
 const handleSignupSubmit = async () => {
   isFetching.value = true;
@@ -85,6 +88,8 @@ const handleSignupSubmit = async () => {
         password: "",
         repPassword: "",
       };
+
+      router.push({ name: "jobseeker-login" });
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         console.log(error.message);
