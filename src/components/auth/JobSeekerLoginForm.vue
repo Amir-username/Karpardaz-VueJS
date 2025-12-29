@@ -8,6 +8,7 @@ import { validationUsername } from "../../core/validationUsername";
 import ErrorField from "../../ui/form/ErrorField.vue";
 import { validationPassword } from "../../core/validationPassword";
 import FormFooter from "../../ui/form/FormFooter.vue";
+import { useTokenStore } from "../../stores/tokenStore";
 
 const formDataRef = ref<{ username: string; password: string }>({
   username: "",
@@ -25,6 +26,8 @@ const { execute, data, isFetching } = useFetch(`${BASE_URL}/jobseeker/login`, {
 const usernameErrors = ref<string[]>([]);
 const passwordErrors = ref<string[]>([]);
 
+const tokenStore = useTokenStore();
+
 const handleLoginSubmit = async () => {
   const validateUsername = validationUsername(formDataRef.value.username);
   const validatePassword = validationPassword(formDataRef.value.password);
@@ -34,6 +37,7 @@ const handleLoginSubmit = async () => {
     formData.set("password", formDataRef.value.password);
 
     await execute();
+    tokenStore.setToken(data.value.access_token);
     console.log(data.value);
     console.log(formData);
   } else {
